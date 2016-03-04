@@ -20,7 +20,7 @@ public class ListenerService extends WearableListenerService {
         if(messageEvent.getPath().equals("/motion1")) {
             messageIntent.putExtra("type", "1");
         }
-        if(messageEvent.getPath().equals("/motion2")) {
+        /*if(messageEvent.getPath().equals("/motion2")) {
             messageIntent.putExtra("type", "2");
         }
         if(messageEvent.getPath().equals("/motion3")) {
@@ -34,7 +34,7 @@ public class ListenerService extends WearableListenerService {
         }
         if(messageEvent.getPath().equals("/passi")) {
             messageIntent.putExtra("type", "6");
-        }
+        }*/
 
         LocalBroadcastManager.getInstance(this).sendBroadcast(messageIntent);
     }

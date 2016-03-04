@@ -47,7 +47,6 @@ public class MainActivity extends Activity implements SensorEventListener {
     private Sensor senGravity;
     private Sensor senLinear;
     private Sensor senGyro;
-    private Sensor senHeart;
     private Sensor senStep;
 
     private long prevD;
@@ -59,12 +58,10 @@ public class MainActivity extends Activity implements SensorEventListener {
     float[] lin ={0,0,0};
     float[] gyro ={0,0,0};
 
-    float heart = 0;
     float passi = 0;
     int i = 0;
 
     ArrayList<String> toSendMov = new ArrayList<String>();
-    ArrayList<String> toSendHeart = new ArrayList<String>();
     ArrayList<String> toSendPassi = new ArrayList<String>();
 
 
@@ -112,8 +109,7 @@ public class MainActivity extends Activity implements SensorEventListener {
         senSensorManager.registerListener((SensorEventListener) this, senGyro, SensorManager.SENSOR_DELAY_GAME);
         senStep = senSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         senSensorManager.registerListener((SensorEventListener) this, senStep, SensorManager.SENSOR_DELAY_NORMAL);
-        senHeart = senSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
-        senSensorManager.registerListener((SensorEventListener) this, senHeart, SensorManager.SENSOR_DELAY_NORMAL);
+
 
         retrieveDeviceNode();
     }
@@ -177,7 +173,7 @@ public class MainActivity extends Activity implements SensorEventListener {
         else
         {
             mTextView = (TextView) findViewById(R.id.text);
-            mTextView.setText("WAITING ");
+            mTextView.setText("Waiting ");
             writed=0;
         }
 
@@ -190,9 +186,6 @@ public class MainActivity extends Activity implements SensorEventListener {
                     client.blockingConnect(15000, TimeUnit.MILLISECONDS);
                     if (tipo == 1) {
                         Wearable.MessageApi.sendMessage(client, nodeId, "/motion", strSend.getBytes());
-                    }
-                    if (tipo == 2) {
-                        Wearable.MessageApi.sendMessage(client, nodeId, "/heart", strSend.getBytes());
                     }
                     if (tipo == 3) {
                         Wearable.MessageApi.sendMessage(client, nodeId, "/passi", strSend.getBytes());
@@ -253,11 +246,6 @@ public class MainActivity extends Activity implements SensorEventListener {
             received[4]=true;
         }
 
-        if (mySensor.getType() == Sensor.TYPE_HEART_RATE) {
-            heart = sensorEvent.values[0];
-            nowD2= d.getTime();
-            received[5]=true;
-        }
 
         //Il controllo sui received serve per vedere se ho rilevato nuovi dati da tutti i sensori
         if(received[0] && received[1] && received[2] && received[3])
@@ -282,42 +270,10 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         }
 
-        if (received[4]) {
-
-            String pac = "";
-            pac = "s" + ";" + nowD1 + ";" + passi ;
-
-            toSendPassi.add(pac);
-
-            received[4]= false;
-
-            if(toSendPassi.size()== 5){
-                String stringa = "";
-                for(int l=0; l<5; l++){
-                    stringa+=toSendPassi.get(l)+"\n";
-                }
-
-                sendMex(stringa, 3);
-                toSendPassi.clear();
-            }
-
-        }
 
         if (received[5]) {
 
-
             received[5]= false;
-
-            if(toSendHeart.size()== 5){
-                String stringa = "";
-                for(int l=0; l<5; l++){
-                    stringa+=toSendHeart.get(l)+"\n";
-                }
-
-                sendMex(stringa, 2);
-                toSendHeart.clear();
-            }
-
         }
 
         prevD=nowD0;

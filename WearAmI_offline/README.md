@@ -1,7 +1,7 @@
 # Wearables Apps Installation Guide
 The following installation guide has been tested on Windows 8.1 (x64).
 
-## 1. Smartphone WearAmI app installation guide
+## 1. Smartphone WearAmI apps installation guide
 1. Download and install Android Studio IDE (it requires Java JDK 7 or higher)
 2. Activate the developer mode on the smartphone
 3. Enable USB debugging on the smartphone

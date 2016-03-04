@@ -11,9 +11,11 @@ package com.andrea.example.prova;
         import android.support.v4.content.LocalBroadcastManager;
         import android.util.Log;
         import android.view.Menu;
+        import android.view.View;
         import android.view.MenuItem;
         import android.hardware.SensorManager;
         import android.hardware.SensorEvent;
+        import android.widget.EditText;
         import android.widget.TextView;
 
         import com.google.android.gms.common.api.GoogleApiClient;
@@ -38,32 +40,32 @@ public class MainActivity extends Activity implements SensorEventListener {
     private Sensor senAccelerometer;
 
     ArrayList<String> toRec = new ArrayList<String>();
-    ArrayList<String> toHeart = new ArrayList<String>();
-    ArrayList<String> toWalk = new ArrayList<String>();
+    //ArrayList<String> toHeart = new ArrayList<String>();
+    //ArrayList<String> toWalk = new ArrayList<String>();
 
     String lastMessageMov = "";
-    String lastMessageHeart = "";
-    String lastMessageWalk = "";
+    //String lastMessageHeart = "";
+    //String lastMessageWalk = "";
 
     int count  =0;
 
     long time_mov = 0;
-    long time_heart = 0;
-    long time_walk = 0;
+    //long time_heart = 0;
+    //long time_walk = 0;
 
     float[] valori = {0,0,0};
     float bpm = 0;
-    float passi = 0;
+    //float passi = 0;
 
     String type_mov = "";
-    String type_heart = "";
-    String type_walk = "";
+    //String type_heart = "";
+    //String type_walk = "";
 
     int i = 0;
     int l = 0;
 
-    String ipaddress ="192.168.8.102";
-    int port = 8888;
+    String ipaddress ="192.168.2.4";
+    int port = 8080;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +95,12 @@ public class MainActivity extends Activity implements SensorEventListener {
 
     }
 
+    public void buttonClick(View view) throws IOException {
+        if(client!=null) {
+            client.close();
+        }
+    }
+
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
@@ -102,6 +110,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+
 
 
     protected void onPause() {
@@ -150,6 +159,9 @@ public class MainActivity extends Activity implements SensorEventListener {
                     try {
 
                         if(client==null || client.isClosed()) {
+                            EditText editText = (EditText) findViewById(R.id.ipText);
+                            ipaddress = editText.getText().toString();
+
                             client = new Socket(ipaddress,port);
                             oos = new PrintStream(client.getOutputStream());
                         }
@@ -192,13 +204,12 @@ public class MainActivity extends Activity implements SensorEventListener {
                 time_mov = Long.valueOf(value.nextToken());
 
 
-
                 for (i = 0; i < 3; i++) {
                     valori[i] = Float.valueOf(value.nextToken());
                 }
 
                 //Mostro solo i valori dell'accelerometro, ma posso mostrare quello che voglio (in valori[] ho tutti i dati)
-                ((TextView) findViewById(R.id.dato)).setText("x: " + valori[0] + "\n" + "y: " + valori[1] + "\n" + "z: " + valori[2]);
+                ((TextView) findViewById(R.id.dato)).setText("IP :" +  ipaddress + "\n" + "port :" +  port + "\n" + "x: " + valori[0] + "\n" + "y: " + valori[1] + "\n" + "z: " + valori[2]);
 
                 for (l = 0; l < 3; l++) {
                     valori[l] = 0;
