@@ -44,14 +44,14 @@ public class MainActivity extends Activity implements SensorEventListener {
     private Sensor senAccelerometer;
     //private Sensor senGravity;
     //private Sensor senLinear;
-    //private Sensor senGyro;
+    private Sensor senGyro;
     //private Sensor senHeart;
     //private Sensor senStep;
 
     float[] acc ={0,0,0};
     //float[] grav ={0,0,0};
     //float[] lin ={0,0,0};
-    //float[] gyro ={0,0,0};
+    float[] gyro ={0,0,0};
 
     //float heart = 0;
     //float passi = 0;
@@ -59,7 +59,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     ArrayList<String> toSendMov1 = new ArrayList<String>();
     //ArrayList<String> toSendMov2 = new ArrayList<String>();
     //ArrayList<String> toSendMov3 = new ArrayList<String>();
-    //ArrayList<String> toSendMov4 = new ArrayList<String>();
+    ArrayList<String> toSendMov4 = new ArrayList<String>();
     //ArrayList<String> toSendHeart = new ArrayList<String>();
     //ArrayList<String> toSendPassi = new ArrayList<String>();
 
@@ -96,7 +96,7 @@ public class MainActivity extends Activity implements SensorEventListener {
                         toSendMov1.clear();
                         //toSendMov2.clear();
                         //toSendMov3.clear();
-                        //toSendMov4.clear();
+                        toSendMov4.clear();
                         //toSendHeart.clear();
                         ((TextView)findViewById(R.id.textT)).setText("Waiting");
                         Log.d("mess", "Stop Write");
@@ -112,9 +112,10 @@ public class MainActivity extends Activity implements SensorEventListener {
         senSensorManager.registerListener((SensorEventListener) this, senGravity, SensorManager.SENSOR_DELAY_GAME);
         senLinear = senSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         senSensorManager.registerListener((SensorEventListener) this, senLinear, SensorManager.SENSOR_DELAY_GAME);
+        */
         senGyro = senSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         senSensorManager.registerListener((SensorEventListener) this, senGyro, SensorManager.SENSOR_DELAY_GAME);
-        senStep = senSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        /*senStep = senSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         senSensorManager.registerListener((SensorEventListener) this, senStep, SensorManager.SENSOR_DELAY_NORMAL);
         senHeart = senSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
         senSensorManager.registerListener((SensorEventListener) this, senHeart, SensorManager.SENSOR_DELAY_NORMAL);*/
@@ -279,10 +280,11 @@ public class MainActivity extends Activity implements SensorEventListener {
                         }
                         if (type_mex == 3) {
                             Wearable.MessageApi.sendMessage(client, nodeId, "/motion3", mess.getBytes());
-                        }
+                        }*/
                         if (type_mex == 4) {
                             Wearable.MessageApi.sendMessage(client, nodeId, "/motion4", mess.getBytes());
                         }
+                        /*
                         if (type_mex == 5) {
                             Wearable.MessageApi.sendMessage(client, nodeId, "/heart", mess.getBytes());
                         }
@@ -369,7 +371,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             pacchetto2 = "l" + ";" + nowD2+";"+lin[0]+";"+lin[1]+";"+lin[2];
             toSendMov2.add(pacchetto2);
         }*/
-        /*if (mySensor.getType() == Sensor.TYPE_GYROSCOPE) {
+        if (mySensor.getType() == Sensor.TYPE_GYROSCOPE) {
             gyro[0] = sensorEvent.values[0];
             gyro[1] = sensorEvent.values[1];
             gyro[2] = sensorEvent.values[2];
@@ -378,7 +380,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             String pacchetto4 = "";
             pacchetto4 = "y" + ";" + nowD3+";"+gyro[0]+";"+gyro[1]+";"+gyro[2];
             toSendMov4.add(pacchetto4);
-        }*/
+        }
 
         /*if (mySensor.getType() == Sensor.TYPE_STEP_COUNTER) {
             passi = sensorEvent.values[0];
@@ -435,7 +437,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             toSendMov3.clear();
         }*/
 
-        /*if(toSendMov4.size() == packetSize)
+        if(toSendMov4.size() == packetSize)
         {
             String strSend = "";
             for(int i=0; i<packetSize; i++)
@@ -443,7 +445,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
             sendMex(strSend,4, 4);
             toSendMov4.clear();
-        }*/
+        }
 /*
         if(toSendPassi.size()== 1){
             String stringa = "";
