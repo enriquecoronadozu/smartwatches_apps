@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Prova</string>
-    <string name="hello_round">Hello Round World!</string>
-    <string name="hello_square">Hello Square World!</string>
+    <string name="app_name">WearAmi Online</string>
+    <string name="hello_round">WearAmi Online</string>
+    <string name="hello_square">WearAmi Online</string>
 </resources>

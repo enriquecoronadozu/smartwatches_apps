@@ -11,6 +11,7 @@ package com.andrea.example.prova;
         import android.view.View;
         import android.widget.Button;
         import android.widget.TextView;
+        import android.widget.CheckBox;
 
         import com.google.android.gms.common.api.GoogleApiClient;
         import com.google.android.gms.wearable.Node;
@@ -31,6 +32,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
     private TextView mTextView;
     private TextView mButton;
+    private CheckBox checkBox1;
 
     boolean writeEnabled=false;
     long timestamp = 0;
@@ -42,26 +44,15 @@ public class MainActivity extends Activity implements SensorEventListener {
 
     private SensorManager senSensorManager;
     private Sensor senAccelerometer;
-    //private Sensor senGravity;
-    //private Sensor senLinear;
     private Sensor senGyro;
-    //private Sensor senHeart;
-    //private Sensor senStep;
+
 
     float[] acc ={0,0,0};
-    //float[] grav ={0,0,0};
-    //float[] lin ={0,0,0};
     float[] gyro ={0,0,0};
 
-    //float heart = 0;
-    //float passi = 0;
 
     ArrayList<String> toSendMov1 = new ArrayList<String>();
-    //ArrayList<String> toSendMov2 = new ArrayList<String>();
-    //ArrayList<String> toSendMov3 = new ArrayList<String>();
     ArrayList<String> toSendMov4 = new ArrayList<String>();
-    //ArrayList<String> toSendHeart = new ArrayList<String>();
-    //ArrayList<String> toSendPassi = new ArrayList<String>();
 
     int packetSize = 10;
 
@@ -76,6 +67,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             public void onLayoutInflated(WatchViewStub stub) {
                 mTextView = (TextView) stub.findViewById(R.id.textT);
                 mButton = (Button) stub.findViewById(R.id.btnWearStart);
+                checkBox1 = (CheckBox) findViewById(R.id.checkBox1);
 
                 mButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -94,31 +86,21 @@ public class MainActivity extends Activity implements SensorEventListener {
                         writeEnabled = false;
                         timestamp = 0;
                         toSendMov1.clear();
-                        //toSendMov2.clear();
-                        //toSendMov3.clear();
                         toSendMov4.clear();
-                        //toSendHeart.clear();
                         ((TextView)findViewById(R.id.textT)).setText("Waiting");
                         Log.d("mess", "Stop Write");
                     }
                 });
+
+
             }
         });
 
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         senSensorManager.registerListener((SensorEventListener) this, senAccelerometer, SensorManager.SENSOR_DELAY_GAME);
-        /*senGravity = senSensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
-        senSensorManager.registerListener((SensorEventListener) this, senGravity, SensorManager.SENSOR_DELAY_GAME);
-        senLinear = senSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
-        senSensorManager.registerListener((SensorEventListener) this, senLinear, SensorManager.SENSOR_DELAY_GAME);
-        */
         senGyro = senSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         senSensorManager.registerListener((SensorEventListener) this, senGyro, SensorManager.SENSOR_DELAY_GAME);
-        /*senStep = senSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        senSensorManager.registerListener((SensorEventListener) this, senStep, SensorManager.SENSOR_DELAY_NORMAL);
-        senHeart = senSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
-        senSensorManager.registerListener((SensorEventListener) this, senHeart, SensorManager.SENSOR_DELAY_NORMAL);*/
 
         retrieveDeviceNode();
 
@@ -157,115 +139,6 @@ public class MainActivity extends Activity implements SensorEventListener {
     //Funzione che manda il messaggio contenente il pacchetto di dati dei sensori
     private void sendMex(final String mess, final int type_mex, final int type_sensor) {
         final GoogleApiClient client = getGoogleApiClient(this);
-
-        /*
-        if(writeEnabled) {
-            if (timestamp != 0) {
-
-                if (type_sensor == 1) {
-                    FileOutputStream fos;
-                    File myFile = new File("/sdcard/" + timestamp + "A" + ".txt");
-                    try {
-                        FileOutputStream fOut = new FileOutputStream(myFile, true);
-                        OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-                        myOutWriter.append(mess);
-                        myOutWriter.close();
-                        fOut.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.d("wear", "errore scrittura");
-                    }
-                }
-
-
-                if (type_sensor == 2) {
-
-
-                    FileOutputStream fos;
-                    File myFile = new File("/sdcard/" + timestamp + "L" + ".txt");
-                    try {
-                        FileOutputStream fOut = new FileOutputStream(myFile, true);
-                        OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-                        myOutWriter.append(mess);
-                        myOutWriter.close();
-                        fOut.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.d("wear", "errore scrittura");
-                    }
-                }
-
-                if (type_sensor == 3) {
-
-
-                    FileOutputStream fos;
-                    File myFile = new File("/sdcard/" + timestamp + "G" + ".txt");
-                    try {
-                        FileOutputStream fOut = new FileOutputStream(myFile, true);
-                        OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-                        myOutWriter.append(mess);
-                        myOutWriter.close();
-                        fOut.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.d("wear", "errore scrittura");
-                    }
-                }
-
-                if (type_sensor == 4) {
-
-
-                    FileOutputStream fos;
-                    File myFile = new File("/sdcard/" + timestamp + "Y" + ".txt");
-                    try {
-                        FileOutputStream fOut = new FileOutputStream(myFile, true);
-                        OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-                        myOutWriter.append(mess);
-                        myOutWriter.close();
-                        fOut.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.d("wear", "errore scrittura");
-                    }
-                }
-
-                if (type_sensor == 6) {
-
-
-                    FileOutputStream fos;
-                    File myFile = new File("/sdcard/" + timestamp + "S" + ".txt");
-                    try {
-                        FileOutputStream fOut = new FileOutputStream(myFile, true);
-                        OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-                        myOutWriter.append(mess);
-                        myOutWriter.close();
-                        fOut.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.d("wear", "errore scrittura");
-                    }
-                }
-
-                if (type_sensor == 5) {
-
-
-                    FileOutputStream fos;
-                    File myFile = new File("/sdcard/" + timestamp + "H" + ".txt");
-                    try {
-                        FileOutputStream fOut = new FileOutputStream(myFile, true);
-                        OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-                        myOutWriter.append(mess);
-                        myOutWriter.close();
-                        fOut.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.d("wear", "errore scrittura");
-                    }
-                }
-
-            }
-        }
-        */
         if(writeEnabled==true) {
             if (nodeId != null) {
                 new Thread(new Runnable() {
@@ -275,55 +148,14 @@ public class MainActivity extends Activity implements SensorEventListener {
                         if (type_mex == 1) {
                             Wearable.MessageApi.sendMessage(client, nodeId, "/motion1", mess.getBytes());
                         }
-/*                        if (type_mex == 2) {
-                            Wearable.MessageApi.sendMessage(client, nodeId, "/motion2", mess.getBytes());
-                        }
-                        if (type_mex == 3) {
-                            Wearable.MessageApi.sendMessage(client, nodeId, "/motion3", mess.getBytes());
-                        }*/
-                        if (type_mex == 4) {
+                        if (type_mex == 4 && checkBox1.isChecked()) {
                             Wearable.MessageApi.sendMessage(client, nodeId, "/motion4", mess.getBytes());
                         }
-                        /*
-                        if (type_mex == 5) {
-                            Wearable.MessageApi.sendMessage(client, nodeId, "/heart", mess.getBytes());
-                        }
-                        if (type_mex == 6) {
-                            Wearable.MessageApi.sendMessage(client, nodeId, "/passi", mess.getBytes());
-                        }
-                        client.disconnect();*/
-
                     }
                 }).start();
             }
         }
 
-
-            /*new Thread(new Runnable(){
-                @Override
-                public void run(){
-                    try {
-
-                        Socket client1 = new Socket("192.168.1.9", 3491);
-
-                        Log.d("Altt", "MESSAGGIOINVIATO");
-
-                        ObjectOutputStream oos = new ObjectOutputStream(client1.getOutputStream());
-                        oos.writeObject(mess);
-                        oos.close();
-
-                        client1.close();
-
-
-
-                    } catch (UnknownHostException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }).start();*/
     }
 
 
@@ -351,26 +183,6 @@ public class MainActivity extends Activity implements SensorEventListener {
             toSendMov1.add(pacchetto1);
 
         }
-        /*if (mySensor.getType() == Sensor.TYPE_GRAVITY) {
-            grav[0] = sensorEvent.values[0];
-            grav[1] = sensorEvent.values[1];
-            grav[2] = sensorEvent.values[2];
-            nowD1 = sensorEvent.timestamp;
-
-            String pacchetto3 = "";
-            pacchetto3 = "g" + ";" + nowD1+";"+grav[0]+";"+grav[1]+";"+grav[2];
-            toSendMov3.add(pacchetto3);
-        }
-        if (mySensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION) {
-            lin[0] = sensorEvent.values[0];
-            lin[1] = sensorEvent.values[1];
-            lin[2] = sensorEvent.values[2];
-            nowD2 = sensorEvent.timestamp;
-
-            String pacchetto2 = "";
-            pacchetto2 = "l" + ";" + nowD2+";"+lin[0]+";"+lin[1]+";"+lin[2];
-            toSendMov2.add(pacchetto2);
-        }*/
         if (mySensor.getType() == Sensor.TYPE_GYROSCOPE) {
             gyro[0] = sensorEvent.values[0];
             gyro[1] = sensorEvent.values[1];
@@ -382,32 +194,6 @@ public class MainActivity extends Activity implements SensorEventListener {
             toSendMov4.add(pacchetto4);
         }
 
-        /*if (mySensor.getType() == Sensor.TYPE_STEP_COUNTER) {
-            passi = sensorEvent.values[0];
-            nowD4 = sensorEvent.timestamp;
-
-            if(inizioreg==0){
-                passitmp=passi;
-                inizioreg++;
-            }
-
-
-            String pac = "";
-            pac = "s" + ";" + nowD4 + ";" + (passi-passitmp);
-            toSendPassi.add(pac);
-
-
-        }
-
-        if (mySensor.getType() == Sensor.TYPE_HEART_RATE) {
-            heart = sensorEvent.values[0];
-            nowD5 = sensorEvent.timestamp;
-
-            String pak = "";
-            pak = "h" + ";" + nowD5 + ";" + heart;
-            toSendHeart.add(pak);
-        }*/
-
         if (toSendMov1.size() == packetSize) {
             String strSend = "";
             for (int i = 0; i < packetSize; i++)
@@ -416,26 +202,6 @@ public class MainActivity extends Activity implements SensorEventListener {
             sendMex(strSend,1, 1);
             toSendMov1.clear();
         }
-
-        /*if(toSendMov2.size() == packetSize)
-        {
-            String strSend = "";
-            for(int i=0; i<packetSize; i++)
-                strSend+=toSendMov2.get(i)+"\n";
-
-            sendMex(strSend,2, 2);
-            toSendMov2.clear();
-        }
-
-        if(toSendMov3.size() == packetSize)
-        {
-            String strSend = "";
-            for(int i=0; i<packetSize; i++)
-                strSend+=toSendMov3.get(i)+"\n";
-
-            sendMex(strSend,3, 3);
-            toSendMov3.clear();
-        }*/
 
         if(toSendMov4.size() == packetSize)
         {
@@ -446,30 +212,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             sendMex(strSend,4, 4);
             toSendMov4.clear();
         }
-/*
-        if(toSendPassi.size()== 1){
-            String stringa = "";
-            for(int l=0; l<1; l++){
-                stringa+=toSendPassi.get(l)+"\n";
-            }
-
-            sendMex(stringa,6, 6);
-            toSendPassi.clear();
-        }
-
-        if(toSendHeart.size()== 1){
-            String stringa = "";
-            for(int l=0; l<1; l++){
-                stringa+=toSendHeart.get(l)+"\n";
-            }
-
-            sendMex(stringa,5, 5);
-            toSendHeart.clear();
-        }*/
-
-
     }
-
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {

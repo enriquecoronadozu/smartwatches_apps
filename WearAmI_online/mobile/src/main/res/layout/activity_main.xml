@@ -5,6 +5,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,10 +21,13 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/dato"
-        android:layout_below="@+id/cont"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="39dp"
-        android:text="Data:" />
+        android:text="Data:"
+        android:layout_marginLeft="0dp"
+        android:width="320dp"
+        android:height="100dp"
+        android:layout_below="@+id/checkBoxData"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="27dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -32,46 +36,42 @@
         android:editable="true"
         android:elegantTextHeight="false"
         android:enabled="true"
-        android:text="192.168.2.4"
-        android:layout_marginEnd="40dp"
-        android:layout_alignTop="@+id/dato"
-        android:layout_alignParentEnd="true" />
+        android:text="130.251.13.125"
+        android:layout_alignTop="@+id/textView"
+        android:layout_toEndOf="@+id/textView"
+        android:layout_marginTop="-12dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="IP of the server:"
         android:id="@+id/textView"
-        android:layout_above="@+id/ipText"
-        android:layout_alignEnd="@+id/ipText"
-        android:textColor="#5a8add" />
+        android:textColor="#5a8add"
+        android:layout_marginTop="33dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="0dp"
+        android:layout_below="@+id/cont"
+        android:layout_alignStart="@+id/dato"
+        android:textStyle="bold"
+        android:textSize="15dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reset"
+        android:text="Reset IP"
         android:id="@+id/buttonReset"
+        android:onClick="buttonClick"
+        android:layout_marginTop="29dp"
+        android:width="150dp"
         android:layout_below="@+id/ipText"
-        android:layout_alignEnd="@+id/ipText"
-        android:layout_marginTop="28dp"
-        android:onClick="buttonClick" /><![CDATA[
+        android:layout_centerHorizontal="true" />
 
-
-
-
-
-
-
-
-
-
-
-
-    p" />
-
-
-
-
-
-]]>
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show acceleration data"
+        android:id="@+id/checkBoxData"
+        android:layout_marginTop="33dp"
+        android:layout_below="@+id/buttonReset"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

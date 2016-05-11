@@ -17,6 +17,7 @@ package com.andrea.example.prova;
         import android.hardware.SensorEvent;
         import android.widget.EditText;
         import android.widget.TextView;
+        import android.widget.CheckBox;
 
         import com.google.android.gms.common.api.GoogleApiClient;
         import com.google.android.gms.wearable.MessageApi;
@@ -38,40 +39,31 @@ public class MainActivity extends Activity implements SensorEventListener {
 
     private SensorManager senSensorManager;
     private Sensor senAccelerometer;
+    private CheckBox checkBoxData;
 
     ArrayList<String> toRec = new ArrayList<String>();
-    //ArrayList<String> toHeart = new ArrayList<String>();
-    //ArrayList<String> toWalk = new ArrayList<String>();
 
     String lastMessageMov = "";
-    //String lastMessageHeart = "";
-    //String lastMessageWalk = "";
+
 
     int count  =0;
-
     long time_mov = 0;
-    //long time_heart = 0;
-    //long time_walk = 0;
-
     float[] valori = {0,0,0};
     float bpm = 0;
-    //float passi = 0;
 
     String type_mov = "";
-    //String type_heart = "";
-    //String type_walk = "";
 
     int i = 0;
     int l = 0;
 
-    String ipaddress ="192.168.2.4";
+    String ipaddress ="130.251.13.125";
     int port = 8080;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        checkBoxData = (CheckBox) findViewById(R.id.checkBoxData);
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         senSensorManager.registerListener((SensorEventListener) this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
@@ -153,6 +145,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
             final String message = intent.getStringExtra("message");
 
+
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -169,8 +162,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 
                         oos.println(message);//message);
                         oos.flush();
-                        //oos.close();
-                        //client.close();
 
 
                     } catch (UnknownHostException e) {
@@ -208,63 +199,16 @@ public class MainActivity extends Activity implements SensorEventListener {
                     valori[i] = Float.valueOf(value.nextToken());
                 }
 
-                //Mostro solo i valori dell'accelerometro, ma posso mostrare quello che voglio (in valori[] ho tutti i dati)
-                ((TextView) findViewById(R.id.dato)).setText("IP :" +  ipaddress + "\n" + "port :" +  port + "\n" + "x: " + valori[0] + "\n" + "y: " + valori[1] + "\n" + "z: " + valori[2]);
+                if (checkBoxData.isChecked()) {
+                    //Mostro solo i valori dell'accelerometro, ma posso mostrare quello che voglio (in valori[] ho tutti i dati)
+                    ((TextView) findViewById(R.id.dato)).setText("IP :" + ipaddress + "\n" + "port :" + port + "\n" + "x: " + valori[0] + "\n" + "y: " + valori[1] + "\n" + "z: " + valori[2]);
+                }
 
                 for (l = 0; l < 3; l++) {
                     valori[l] = 0;
                 }
                 toRec.clear();
             }
-            /*
-            if(intent.getStringExtra("type")=="5"){
-
-                StringTokenizer heart = new StringTokenizer(message, "\n");
-
-                while (heart.hasMoreTokens()) {
-                    toHeart.add(heart.nextToken());
-                }
-
-                lastMessageHeart = toHeart.get(4);
-
-                StringTokenizer value = new StringTokenizer(lastMessageHeart, ";");
-
-                type_heart = value.nextToken();
-
-                time_heart = Long.valueOf(value.nextToken());
-
-                Log.d("Mes", "h" + time_heart);
-
-                bpm =  Float.valueOf(value.nextToken());
-
-                ((TextView) findViewById(R.id.heart)).setText("BPM: " + bpm);
-
-                toHeart.clear();
-            }
-
-            if(intent.getStringExtra("type")=="6"){
-
-                StringTokenizer walk = new StringTokenizer(message, "\n");
-
-                while (walk.hasMoreTokens()) {
-                    toWalk.add(walk.nextToken());
-                }
-
-                lastMessageWalk = toWalk.get(4);
-
-                StringTokenizer value = new StringTokenizer(lastMessageWalk, ";");
-
-                type_walk = value.nextToken();
-
-                time_walk = Long.valueOf(value.nextToken());
-
-                passi =  Float.valueOf(value.nextToken());
-
-                ((TextView) findViewById(R.id.walk)).setText("Passi: " + passi);
-
-                toWalk.clear();
-            }
-            */
         }
     }
 }

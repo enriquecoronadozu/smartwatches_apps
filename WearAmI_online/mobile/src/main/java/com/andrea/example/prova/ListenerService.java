@@ -20,22 +20,9 @@ public class ListenerService extends WearableListenerService {
         if(messageEvent.getPath().equals("/motion1")) {
             messageIntent.putExtra("type", "1");
         }
-        /*if(messageEvent.getPath().equals("/motion2")) {
-            messageIntent.putExtra("type", "2");
-        }
-        if(messageEvent.getPath().equals("/motion3")) {
-            messageIntent.putExtra("type", "3");
-        }
         if(messageEvent.getPath().equals("/motion4")) {
             messageIntent.putExtra("type", "4");
         }
-        if(messageEvent.getPath().equals("/heart")) {
-            messageIntent.putExtra("type", "5");
-        }
-        if(messageEvent.getPath().equals("/passi")) {
-            messageIntent.putExtra("type", "6");
-        }*/
-
         LocalBroadcastManager.getInstance(this).sendBroadcast(messageIntent);
     }
 }
