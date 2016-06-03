@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:text="Reset IP"
         android:id="@+id/buttonReset"
-        android:onClick="buttonClick"
+        android:onClick="buttonClickReset"
         android:layout_marginTop="29dp"
         android:width="150dp"
         android:layout_below="@+id/ipText"
@@ -74,14 +74,36 @@
         android:id="@+id/checkBoxData"
         android:layout_marginTop="33dp"
         android:layout_below="@+id/buttonReset"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:checked="false" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Move robot"
+        android:text="Send data"
         android:id="@+id/checkBoxS"
         android:layout_marginTop="40dp"
         android:layout_below="@+id/dato"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:checked="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="STOP"
+        android:id="@+id/button"
+        android:onClick="buttonClickStop"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/ipText"
+        android:layout_alignEnd="@+id/ipText" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/button2"
+        android:onClick="buttonClickStart"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/ipText"
+        android:layout_toStartOf="@+id/ipText" />
 </RelativeLayout>
