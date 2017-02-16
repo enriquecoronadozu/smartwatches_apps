@@ -5,17 +5,19 @@ import android.support.v4.content.LocalBroadcastManager;
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
 
-
 /**
  * Listener activity
  */
 public class ListenerService extends WearableListenerService {
 
+    String message;
+    Intent messageIntent;
+
     @Override
     public void onMessageReceived(MessageEvent messageEvent) {
 
-        final String message = new String(messageEvent.getData());
-        Intent messageIntent = new Intent();
+        message = new String(messageEvent.getData());
+        messageIntent = new Intent();
         messageIntent.setAction(Intent.ACTION_SEND);
         messageIntent.putExtra("message", message);
 
@@ -25,8 +27,8 @@ public class ListenerService extends WearableListenerService {
         }
 
         //Gyroscope
-        if(messageEvent.getPath().equals("/motion4")) {
-            messageIntent.putExtra("type", "4");
+        if(messageEvent.getPath().equals("/motion2")) {
+            messageIntent.putExtra("type", "2");
         }
         LocalBroadcastManager.getInstance(this).sendBroadcast(messageIntent);
     }

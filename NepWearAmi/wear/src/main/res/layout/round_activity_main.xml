@@ -7,35 +7,97 @@
     <TextView android:id="@+id/textT" android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Waiting"
+        android:layout_marginLeft="15dp"
         android:layout_below="@+id/btnWearStart"
-        android:layout_alignStart="@+id/btnWearStart"
-        android:layout_marginLeft="15dp" />
+        android:layout_alignEnd="@+id/radioGroup" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start"
+        android:onClick="buttonClickStart"
         android:id="@+id/btnWearStart"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp" />
+        android:layout_centerHorizontal="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gyro"
+        android:id="@+id/checkBox"
+        android:onClick="onCheckboxClicked2"
+        android:layout_below="@+id/checkBox1"
+        android:layout_alignStart="@+id/checkBox1" />
+
+
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Steps"
+        android:id="@+id/checkBox1"
+        android:onClick="onCheckboxClicked3"
+        android:layout_below="@+id/textT"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="28dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Acc"
+        android:id="@+id/checkBoxAcc"
+        android:onClick="onCheckboxClicked"
+        android:checked="true"
+        android:layout_below="@+id/checkBox"
+        android:layout_alignStart="@+id/checkBox" />
+
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/radioGroup"
+        android:layout_alignTop="@+id/checkBox1"
+        android:layout_alignBottom="@+id/checkBoxAcc"
+        android:layout_toEndOf="@+id/checkBox1">
+
+        <RadioButton
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:text="Game"
+            android:id="@+id/radioButton"
+            android:layout_above="@+id/radioButton2"
+            android:layout_alignStart="@+id/radioButton2"
+            android:onClick="onRadioButtonClicked"
+            android:checked="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UI"
+            android:id="@+id/radioButton2"
+            android:layout_alignTop="@+id/checkBoxAcc"
+            android:onClick="onRadioButtonClicked2"
+            android:layout_alignStart="@+id/radioButton3" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Normal"
+            android:id="@+id/radioButton3"
+            android:onClick="onRadioButtonClicked3"
+            android:layout_above="@+id/textT"
+            android:layout_alignEnd="@+id/textT" />
+
+    </RadioGroup>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Stop"
         android:id="@+id/btnWearStop"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="22dp" />
+        android:onClick="buttonClickStop"
+        android:layout_below="@+id/radioGroup"
+        android:layout_centerHorizontal="true" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gyro Data"
-        android:id="@+id/checkBox1"
-        android:layout_centerVertical="true"
-        android:layout_alignEnd="@+id/btnWearStop"
-        android:layout_marginEnd="28dp" />
 
 </RelativeLayout>

@@ -6,104 +6,216 @@
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
     android:background="@drawable/fondo">
 
-
-    <TextView
-        android:layout_width="wrap_content"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Nep WearAmi"
-        android:id="@+id/cont"
-        android:layout_alignParentTop="true"
-        android:textStyle="bold"
-        android:textColor="@android:color/black" />
+        android:fillViewport="true"
+        android:id="@+id/scrollView">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/dato"
-        android:text="Data:"
-        android:layout_marginLeft="0dp"
-        android:width="320dp"
-        android:height="100dp"
-        android:layout_below="@+id/checkBoxData"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="27dp" />
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="5">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ipText"
-        android:editable="true"
-        android:elegantTextHeight="false"
-        android:enabled="true"
-        android:text="130.251.13.125"
-        android:layout_alignTop="@+id/textView"
-        android:layout_toEndOf="@+id/textView"
-        android:layout_marginTop="-12dp" />
+    <!-- everything you already have -->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="IP of the server:"
-        android:id="@+id/textView"
-        android:textColor="#5a8add"
-        android:layout_marginTop="33dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="0dp"
-        android:layout_below="@+id/cont"
-        android:layout_alignStart="@+id/dato"
-        android:textStyle="bold"
-        android:textSize="15dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reset IP"
-        android:id="@+id/buttonReset"
-        android:onClick="buttonClickReset"
-        android:layout_marginTop="29dp"
-        android:width="150dp"
-        android:layout_below="@+id/ipText"
-        android:layout_centerHorizontal="true" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></TableRow>
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show acceleration data"
-        android:id="@+id/checkBoxData"
-        android:layout_marginTop="33dp"
-        android:layout_below="@+id/buttonReset"
-        android:layout_centerHorizontal="true"
-        android:checked="false" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Send data"
-        android:id="@+id/checkBoxS"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/dato"
-        android:layout_centerHorizontal="true"
-        android:checked="false" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="STOP"
-        android:id="@+id/button"
-        android:onClick="buttonClickStop"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/ipText"
-        android:layout_alignEnd="@+id/ipText" />
+        </TableRow>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:id="@+id/button2"
-        android:onClick="buttonClickStart"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/ipText"
-        android:layout_toStartOf="@+id/ipText" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/textView"
+                android:layout_column="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ipText"
+                android:text="192.168.2.1"
+                android:layout_column="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reset IP"
+                android:id="@+id/buttonReset"
+                android:onClick="buttonClickReset"
+                android:layout_column="12" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send data to a PC"
+                android:id="@+id/checkBoxSend"
+                android:onClick="onCheckboxClickedSend"
+                android:layout_column="1"
+                android:checked="false" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Use smartphone sensors"
+                android:id="@+id/checkBoxPhone"
+                android:onClick="onCheckboxClickedSend"
+                android:layout_column="12" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save in smartphone"
+                android:id="@+id/checkBox"
+                android:onClick="onCheckboxClickedSave"
+                android:layout_column="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SEND/REC"
+                android:id="@+id/button"
+                android:onClick="buttonClickStart"
+                android:layout_column="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="STOP/SAVE"
+                android:id="@+id/button2"
+                android:onClick="buttonClickStop"
+                android:layout_column="12" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data:"
+                android:width="320dp"
+                android:height="120dp"
+                android:id="@+id/dato"
+                android:layout_column="1"
+                android:layout_span="12" />
+        </TableRow>
+    </TableLayout>
+    </ScrollView>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/scrollView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="See acceleration data"
+            android:id="@+id/radioButtonAcc"
+            android:layout_column="12"
+            android:checked="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="See gyroscope data"
+            android:id="@+id/radioButtonGyro"
+            android:layout_column="12" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="See steps count"
+            android:id="@+id/radioButtonSteps"
+            android:layout_column="12" />
+    </RadioGroup>
+
+
 </RelativeLayout>

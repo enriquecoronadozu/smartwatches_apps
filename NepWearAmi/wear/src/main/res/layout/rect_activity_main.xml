@@ -8,34 +8,113 @@
         android:layout_height="wrap_content"
         android:text="Waiting"
         android:layout_marginLeft="15dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/btnWearStart" />
+        android:layout_above="@+id/btnWearStart"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start"
+        android:onClick="buttonClickStart"
         android:id="@+id/btnWearStart"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp" />
+        android:layout_alignTop="@+id/btnWearStop"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Stop"
         android:id="@+id/btnWearStop"
+        android:onClick="buttonClickStop"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="22dp" />
+        android:layout_alignParentEnd="true" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gyro Data"
+        android:text="Gyro"
+        android:id="@+id/checkBox"
+        android:onClick="onCheckboxClicked2"
+        android:layout_below="@+id/checkBoxAcc"
+        android:layout_alignParentStart="true" />
+
+
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Steps"
         android:id="@+id/checkBox1"
-        android:layout_centerVertical="true"
-        android:layout_alignEnd="@+id/btnWearStop"
-        android:layout_marginEnd="28dp" />
+        android:onClick="onCheckboxClicked3"
+        android:layout_below="@+id/checkBox"
+        android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Acc"
+        android:id="@+id/checkBoxAcc"
+        android:onClick="onCheckboxClicked"
+        android:checked="true"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Sensors:"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/checkBox1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Packet size:"
+        android:id="@+id/textView2"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/radioGroup" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textView2"
+        android:layout_alignStart="@+id/btnWearStop"
+        android:id="@+id/radioGroup">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:id="@+id/radioButton"
+            android:layout_above="@+id/radioButton2"
+            android:layout_alignStart="@+id/radioButton2"
+            android:onClick="onRadioButtonClicked"
+            android:checked="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:id="@+id/radioButton2"
+            android:layout_alignTop="@+id/checkBoxAcc"
+            android:onClick="onRadioButtonClicked2"
+            android:layout_alignStart="@+id/radioButton3" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:id="@+id/radioButton3"
+            android:onClick="onRadioButtonClicked3"
+            android:layout_above="@+id/textT"
+            android:layout_alignEnd="@+id/textT" />
+
+    </RadioGroup>
+
+
 
 </RelativeLayout>
